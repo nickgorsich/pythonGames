@@ -1,5 +1,5 @@
 ''' 
-    Wordle.py
+    ogWordle.py
     Made by Nicholas Gorsich
     All rights reserved. 2026
 '''

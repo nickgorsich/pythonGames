@@ -1,4 +1,14 @@
-import time, random, os
+''' 
+    Wordle.py
+    Made by Nicholas Gorsich
+    All rights reserved. 2026
+'''
+
+import random   # word selection
+import time     # time each game and output upon completion
+import os       # add terminal clear commands
+import json     # load word list from json file
+
 
 class style():
     BLACK = '\033[30m'
@@ -13,17 +23,18 @@ class style():
     RESET = '\033[0m'
 
 def clearTerminal():
-    os.system('cls' if os.name == 'nt' else 'clear')
+    if os.name == 'nt':
+        os.system('cls')
+    else:
+        os.system('clear')
 
 os.system("")
-clearTerminal() # reset terminal
 
-import json    # load word list from json file
+clearTerminal()
 
 wordList = []
 with open('words.json', 'r') as f:
     wordList = json.load(f)
-dictionary = wordList  # valid-guess list is the same json word list
 
 
 def Wordle():
@@ -47,7 +58,7 @@ def Wordle():
             time.sleep(1)
             attempts += 10
 
-        elif len(a) == 5 and b.lower() in dictionary:
+        elif len(a) == 5 and b.lower() in wordList:
             guess = [None] * 5  # store styled guess letters
             correctLetters = []
             count = 0
@@ -115,7 +126,7 @@ def Wordle():
         else:
             if len(a) != 5:
                 print(style.BLACK + "not 5 letters" + style.RESET)
-            if b.lower() not in dictionary:
+            if b.lower() not in wordList:
                 print(style.BLACK + "not a word" + style.RESET)
 
             attempts -= 1
@@ -128,8 +139,11 @@ def Wordle():
     print(style.RED + "Game Over" + style.RESET)
 
     v = input("Do you want to play again?: ")
-    if (v.lower() == "yes") or (v.lower() == "y"):
-        clearTerminal() # clear terminal for new game
+    if (v.lower() == "yes"):
+        clearTerminal()
+        Wordle()
+    if (v.lower() == "y"):
+        clearTerminal()
         Wordle()
     else:
         print(style.BLACK + "Thanks for playing" + style.RESET)
@@ -188,39 +202,3 @@ def sort_leaderboard():
 ''' THE GAME STARTS HERE '''
 
 Wordle()
-
-
-
-# ============================================== AI generated Wordle =======================================================================
-
-# List of five-letter words
-word_list = wordList  # pull from the json word list
-
-# Select a random word from the list
-word_to_guess = random.choice(word_list)
-
-# Number of attempts
-def copilotWordle():
-    attempts = 6
-
-    for attempt in range(attempts):
-        guess = input("Enter your guess: ").upper()
-        if len(guess) != 5:
-            print("Please enter a five-letter word.")
-            continue
-        if guess == word_to_guess:
-            print("Congratulations! You've guessed the word.")
-            break
-        else:
-            # Provide feedback
-            feedback = ['_' for _ in range(5)]
-            for i in range(5):
-                if guess[i] == word_to_guess[i]:
-                    feedback[i] = guess[i]
-                elif guess[i] in word_to_guess:
-                    feedback[i] = '?'
-            print(' '.join(feedback))
-    else:
-        print(f"Sorry, you didn't guess the word. The word was {word_to_guess}.")
-
-#copilotWordle()
