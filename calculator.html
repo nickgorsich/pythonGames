@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+
+<title>Calculator</title>
+<h1>Welcome to Nick's HTML Calculator</h1>
+
+
+<table>
+
+    <tr><td><button class="btn-default">7</button></td><td><button class="btn-default">8</button></td><td><button class="btn-default">9</button></td><td><button class="btn-default">÷</button></td></tr>
+    <tr><td><button class="btn-default">4</button></td><td><button class="btn-default">5</button></td><td><button class="btn-default">6</button></td><td><button class="btn-default">x</button></td></tr>
+    <tr><td><button class="btn-default">1</button></td><td><button class="btn-default">2</button></td><td><button class="btn-default">3</button></td><td><button class="btn-default">-</button></td></tr>
+    <tr><td><button class="btn-default">0</button></td><td><button class="btn-default">.</button></td><td><button class="btn-default">=</button></td><td><button class="btn-default">+</button></td></tr>
+</table>
+
+
+
+
+
+Example code for button functions
+
+<body>
+  <p>What are French fries made out of?</p>
+  <input type="text" id="input1"><br>
+  <button onclick="readInput();">Click</button><br>
+  <p id="status">Click the button to submit answer</p>
+<script>
+  function readInput(){
+    input1 = document.getElementById('input1');
+    var paragraph = document.getElementById('status');
+    //console.log(input1.value);
+    if (input1.value == 'potatos'){
+      paragraph.innerHTML = 'Correct!';
+    }
+    else{paragraph.innerHTML = 'incorrect, try again';}
+  }
+  
+</script>
+</body>
