@@ -1,0 +1,28 @@
+GIT REFERENCE (replace CAPS words)
+
+BASICS
+git status                       see what changed
+git add .                        stage everything
+git commit -m "MESSAGE"          save changes
+git push                         upload
+git pull                         download
+
+BRANCHES
+git branch                       list branches
+git switch BRANCH                move to branch
+git switch -c BRANCH             create and move to branch
+git merge BRANCH                 merge into current branch
+git branch -d BRANCH             delete branch
+
+HISTORY
+git log --oneline                commit history
+git diff                         see edits
+
+UNDO
+git restore FILE                 discard edits to a file
+git reset HEAD~1                 undo last commit, keep changes
+
+SETUP
+git clone URL                    copy a repo
+git init                         start a repo
+git remote add origin URL        link to GitHub
