@@ -4,6 +4,20 @@
     All rights reserved. 2026
 '''
 
+# Features to add
+# 
+# 0.  Rename variables to be more descriptive and easier to read.
+# 1.  Visualize the letters that have been guessed and their colors 
+#     (green, yellow, white) in a keyboard layout format.
+# 2.  Same name leaderboard entries should be combined into one entry 
+#     with the best score (lowest time and attempts) displayed.
+# 2.5 Determine weight of attempts vs time for leaderboard ranking.
+# 3.  Switch from colored text to colored blocks for clearer visual.
+# 4.  Reset terminal more often, clear "not a word" and other temporary messages
+#     such as hints or attempts left. 
+# 5.  Add easter eggs
+
+
 import random   # word selection
 import time     # time each game and output upon completion
 import os       # add terminal clear commands
@@ -30,17 +44,15 @@ def clearTerminal():
         os.system('clear')
 
 os.system("")
-
 clearTerminal()
 
-# wordList -> words the game can pick as the answer (common, non-plural)
-# dictionary -> every valid 5-letter word, used only to validate guesses
+wordList = []
 with open('words.json', 'r') as f:
     wordList = json.load(f)
 
+dictionary = []
 with open('dictionary.json', 'r') as f:
-    dictionary = set(json.load(f))
-
+    dictionary = json.load(f)
 
 def Wordle():
     answer = random.choice(wordList).upper()
@@ -78,8 +90,9 @@ def Wordle():
             attempts += 6
 
         elif a == list("hint"):
-            options = [1, 2, 3]
+            options = [1, 2, 3, 4, 5]
             hint = random.choice(options)
+            attempts -= 1
             if hint == 1:
                 print(style.YELLOW + f"The word starts with {answer[0]}" + style.RESET)
             elif hint == 2:
