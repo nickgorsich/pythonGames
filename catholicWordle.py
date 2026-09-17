@@ -1,13 +1,19 @@
 ''' 
-    Wordle.py
+    catholicWordle.py
     Made by Nicholas Gorsich
     All rights reserved. 2026
+
+    Wordle.py with a Catholic answer pool: saints, biblical people, the mass,
+    the liturgy and the places scripture happens in.
 '''
 
 import random   # word selection
 import time     # time each game and output upon completion
 import os       # add terminal clear commands
 import json     # load word list from json file
+
+
+LEADERBOARD = 'catholicLeaderboard.txt'
 
 
 class style():
@@ -33,18 +39,19 @@ os.system("")
 
 clearTerminal()
 
-# wordList -> words the game can pick as the answer (common, non-plural)
-# dictionary -> every valid 5-letter word, used only to validate guesses
-with open('words.json', 'r') as f:
+# wordList -> the Catholic words the game can pick as the answer
+# dictionary -> every ordinary 5-letter word PLUS the Catholic ones, so guesses
+#               like TOBIT and KYRIE are accepted alongside CRANE and SLATE
+with open('catholicWords.json', 'r') as f:
     wordList = json.load(f)
 
 with open('dictionary.json', 'r') as f:
-    dictionary = set(json.load(f))
+    dictionary = set(json.load(f)) | set(wordList)
 
 
 def Wordle():
     answer = random.choice(wordList).upper()
-    print(style.MAGENTA + "\n -- Welcome to Nick's Wordle --" + style.RESET)
+    print(style.MAGENTA + "\n -- Welcome to Nick's Catholic Wordle --" + style.RESET)
     print(style.BLUE + "  - Enter [quit] to end game -" + style.RESET)
     print(style.BLUE + "  - Enter [hint] for a hint -" + style.RESET)
     name = input("Enter your name: ")
@@ -69,11 +76,6 @@ def Wordle():
 
         if a == list("quit"):
             print(style.GREY + "loser!" + style.RESET)
-            time.sleep(1)
-            attempts += 6
-	
-        elif a == list("nigga"):
-            print(style.RED + "AHHH DONT ROB ME!!!" + style.RESET)
             time.sleep(1)
             attempts += 6
 
@@ -132,13 +134,13 @@ def Wordle():
                 print(style.BLUE + f"It took you {finalTime} seconds and {attempts} attempts.\n" + style.RESET)
                 time.sleep(1.5)
 
-                with open('leaderboard.txt', 'a') as leaderboard:
+                with open(LEADERBOARD, 'a') as leaderboard:
                     leaderboard.write(f"{name}: {finalTime} seconds in {attempts} attempts.\n")
 
                 sort_leaderboard()  # sort the leaderboard after each game
                 print(style.MAGENTA + "      -- Leaderboard --\n" + style.RESET)
 
-                with open('leaderboard.txt', 'r') as leaderboard:
+                with open(LEADERBOARD, 'r') as leaderboard:
                     print(leaderboard.read())  # leaderboard print statement
 
                 z = input("Do you want to play again?: ")
@@ -178,14 +180,14 @@ def Wordle():
 
 
 def clearleaderboard():
-    with open('leaderboard.txt', 'w') as lb:
+    with open(LEADERBOARD, 'w') as lb:
         lb.write('')
 
 def sort_leaderboard():
     entries = []
 
     # -------- read and parse every line --------
-    with open('leaderboard.txt', 'r') as lb:
+    with open(LEADERBOARD, 'r') as lb:
         for raw in lb:
             line = raw.strip()
             if not line:
@@ -217,14 +219,14 @@ def sort_leaderboard():
 
     # -------- sort & rewrite --------
     entries.sort()   # ascending by time, then attempts automatically
-    with open('leaderboard.txt', 'w') as lb:
+    with open(LEADERBOARD, 'w') as lb:
         for rank, (t, att, n) in enumerate(entries, start=1):
             lb.write(f"{rank}. {n}: {t} seconds in {att} attempts.\n")
     
 def seeLeaderboard():
     clearTerminal()
     print(style.MAGENTA + "\n      -- Leaderboard --\n" + style.RESET)
-    with open('leaderboard.txt', 'r') as leaderboard:
+    with open(LEADERBOARD, 'r') as leaderboard:
         print(leaderboard.read())  # leaderboard print statement
 
 

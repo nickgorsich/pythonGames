@@ -1,4 +1,7 @@
-1. Joseph: 37 seconds in 6 attempts.
-2. [0mMary: 41 seconds in 5 attempts.
-3. Jesus: 42 seconds in 4 attempts.
-4. Nicholas: 78 seconds in 6 attempts.
+1. nicholas: 17 seconds in 5 attempts.
+2. Joseph: 37 seconds in 6 attempts.
+3. [0mMary: 41 seconds in 5 attempts.
+4. Jesus: 42 seconds in 4 attempts.
+5. Basta: 52 seconds in 6 attempts.
+6. Nicholas: 78 seconds in 6 attempts.
+7. nicholas: 116 seconds in 4 attempts.
