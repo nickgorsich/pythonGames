@@ -4,7 +4,7 @@
     All rights reserved. 2026
 
     Wordle.py with a Catholic answer pool: saints, biblical people, the mass,
-    the liturgy and the places scripture happens in.
+    the liturgy, and locations in scripture.
 '''
 
 import random   # word selection
