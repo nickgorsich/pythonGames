@@ -7,7 +7,6 @@ import subprocess
 
 os.system("")
 
-# Flip to False while testing so the Mac does not actually sleep on you.
 SLEEP_ON_EXIT = True
 
 # Map $TERM_PROGRAM to the macOS app name we need to re-activate after the
@@ -25,7 +24,6 @@ _TERMINAL_APPS = {
 }
 
 def focus_terminal():
-    """Bring the terminal that launched us back to the front (macOS only)."""
     if sys.platform != "darwin":
         return
     app = _TERMINAL_APPS.get(os.environ.get("TERM_PROGRAM", ""))
@@ -38,7 +36,6 @@ def focus_terminal():
     )
 
 def sleep_computer():
-    """Put the machine into sleep mode (macOS)."""
     if not SLEEP_ON_EXIT:
         return
     if sys.platform != "darwin":
@@ -57,7 +54,7 @@ GLYPHS = [
 _COLORS = ["\033[32m", "\033[92m", "\033[36m", "\033[31m", "\033[37m"]
 _RESET = "\033[0m"
 
-def destruction(duration=6.0, frame_delay=0.015):
+def destruction(duration=3.0, frame_delay=0.015):
     """Flood the terminal with high-speed gibberish for `duration` seconds."""
     try:
         width, height = os.get_terminal_size()
@@ -205,15 +202,14 @@ def JARVIS():
     S()
     screen = t.getscreen()
     screen.update()
-    time.sleep(1.5)          # let the finished drawing linger a beat
+    time.sleep(1.5)          # let the finished drawing linger a bit
     screen.bye()             # close the drawing window
-    focus_terminal()         # hand focus back to the terminal
+    focus_terminal()         # focus back to the terminal
     os.system("clear")
-    print("\n ... I have been summoned ... \n")
-    time.sleep(2)
+    time.sleep(1)
     song()
-    time.sleep(3)
-    destruction(duration=6.0)
+    time.sleep(2)
+    destruction(duration=3.0)
     os.system("clear")
     sleep_computer()
     sys.exit(0)
